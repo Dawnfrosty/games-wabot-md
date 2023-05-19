@@ -62,7 +62,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
     let { exp, limit, level, role } = db.data.users[m.sender]
     let { min, xp, max } = xpRange(level, global.multiplier)
     let name = await conn.getName(m.sender)
-    let d = new Date(new Date + 3600000)
+    let d = new Date(new Date() + 3600000)
     let locale = 'id'
     // d.getTimeZoneOffset()
     // Offset -420 is 18.00
@@ -108,10 +108,15 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
         enabled: !plugin.disabled,
       }
     })
-    for (let plugin of help)
-      if (plugin && 'tags' in plugin)
-        for (let tag of plugin.tags)
-          if (!(tag in tags) && tag) tags[tag] = tag
+    for (let plugin of help) {
+      if (plugin && 'tags' in plugin) {
+        for (let tag of plugin.tags) {
+          if (!(tag in tags) && tag) {
+            tags[tag] = tag;
+          }
+        }
+      }
+    }
     conn.menu = conn.menu ? conn.menu : {}
     let before = conn.menu.before || defaultMenu.before
     let header = conn.menu.header || defaultMenu.header
@@ -153,11 +158,11 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => './src/avatar_contact.png')
-    //conn.sendHydrated(m.chat, text.trim(), author, pp, 'https://github.com/BochilGaming/oliviabot1', 'Github', [
-      //['Donate', '/donasi'],
-      //['Speed', '/ping'],
-      //['Owner', '/owner']
-    //], m)
+    // conn.sendHydrated(m.chat, text.trim(), author, pp, 'https://github.com/BochilGaming/oliviabot1', 'Github', [
+    //   ['Donate', '/donasi'],
+    //   ['Speed', '/ping'],
+    //   ['Owner', '/owner']
+    // ], m)
     conn.reply(m.chat, pp, text.trim(), m)
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
