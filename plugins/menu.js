@@ -158,7 +158,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
       //['Speed', '/ping'],
       //['Owner', '/owner']
     //], m)
-    conn.sendButton(m.chat, pp, text.trim(), author, [
+    conn.sendButton(m.chat, pp, text.trim(), [
         ['Donate', '/donasi'],
         ['Speed', '/ping'],
         ['Owner', '/owner']
