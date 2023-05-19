@@ -158,11 +158,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
       //['Speed', '/ping'],
       //['Owner', '/owner']
     //], m)
-    conn.sendButton(m.chat, pp, text.trim(), [
-        ['Donate', '/donasi'],
-        ['Speed', '/ping'],
-        ['Owner', '/owner']
-      ], m)
+    conn.sendButton(m.chat, pp, text.trim(), ['Owner', '/owner'], m)
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
